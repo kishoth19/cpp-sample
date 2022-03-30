@@ -15,24 +15,15 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@1
+- script: |
+    echo "Hello world"
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo "using inline command"
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    
-- task: CopyFiles@2
-  inputs:
-    Contents: '**\$(BuildConfiguration)\**\?(*.exe|*.dll|*.pdb)'
-    TargetFolder: 
